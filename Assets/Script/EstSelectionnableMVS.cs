@@ -12,25 +12,41 @@ public class EstSelectionnableMVS : MonoBehaviour {
     public float timer;
     public float timerLimit = 3f;
     public string sceneToLoad;
+    public GameObject canvasDetection;
+    bool detectionOn;
 
 	// Use this for initialization
 	void Start () {
         timer = 0f;
+        detectionOn = false;
+        canvasDetection.SetActive(false);
+        text.text = "Start Detection";
     }
 	
 	// Update is called once per frame
 	void Update () {
 	    if(pasloin(erreur)) {
             
-            print("Proche");
+            
             timer += Time.deltaTime;
             if(timer> timerLimit) {
                 timer = timerLimit;
-                Application.LoadLevel(sceneToLoad);
+                
+                if(detectionOn) {
+                    canvasDetection.SetActive(false);
+                    text.text = "Start Detection";
+                    detectionOn = false;
+                } else {
+                    canvasDetection.SetActive(true);
+                    text.text = "Exit Detection";
+                    detectionOn = true;
+                }
+                
+                timer = 0;
             }
         } else {
  
-            print("Loin");
+            
             timer -= Time.deltaTime;
             if (timer < 0f) {
                 timer = 0f;
@@ -43,7 +59,15 @@ public class EstSelectionnableMVS : MonoBehaviour {
         slider.value= timer / timerLimit;
 
         if(Input.GetButton("Cancel")) {
-            Application.LoadLevel(sceneToLoad);
+            if (detectionOn) {
+                canvasDetection.SetActive(false);
+                text.text = "Start Detection";
+                detectionOn = false;
+            } else {
+                canvasDetection.SetActive(true);
+                text.text = "Exit Detection";
+                detectionOn = true;
+            }
         }
     }
 
