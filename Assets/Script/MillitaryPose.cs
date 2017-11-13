@@ -7,6 +7,7 @@ public class MillitaryPose : MonoBehaviour {
     public GameObject hand_right;
     public GameObject elbow_right;
     public GameObject shoulder_right;
+    public EstSelectionnableMVS estSelectionnableDetectionScript;
 
     public float seuilDetection = 0.5f;
 
@@ -38,6 +39,8 @@ public class MillitaryPose : MonoBehaviour {
 
         if(head_hand && elbow_shoulder) {
             gestureDetected = true;
+            estSelectionnableDetectionScript.returnMenu();
+
         } else {
             gestureDetected = false;
         }
@@ -51,7 +54,7 @@ public class MillitaryPose : MonoBehaviour {
     // Use this for initialization
     void Start () {
         gestureDetected = false;
-
+        
     }
 	
 	// Update is called once per frame
