@@ -41,6 +41,10 @@ public class EstSelectionnableMVS : MonoBehaviour {
         color.r = 1-timer / timerLimit;
         material.color = color;
         slider.value= timer / timerLimit;
+
+        if(Input.GetButton("Cancel")) {
+            Application.LoadLevel(sceneToLoad);
+        }
     }
 
     bool pasloin(float erreur) {
